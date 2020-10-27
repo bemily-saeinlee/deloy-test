@@ -19,6 +19,17 @@ dependencies {
     }
 }
 
+task unpackJar(type: Copy) {
+    def unpackDir = "$buildDir/dependency"
+    delete unpackDir
+    from zipTree(jar.getArchiveFile())
+    into unpackDir
+}
+
+build {
+    finalizedBy unpackJar
+}
+
 test {
     useJUnitPlatform()
 }
